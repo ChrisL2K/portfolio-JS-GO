@@ -20,7 +20,7 @@ async function router() {
         "/projects": Projects,
         "/resume": Resume,
         "/contact-me": ContactMe
-    };
+    }
     
     const view = function() {
         if (routes[location.pathname]) return new routes[location.pathname];
@@ -37,7 +37,10 @@ async function getNavbar() {
 
     activeNavbar = nav();
     document.getElementById("navbar").innerHTML = await activeNavbar.getBody();
-    if (activeNavbar.state.mode == 2) document.getElementById("icon-nav").src = activeNavbar.HamburgIcon;
+    if (activeNavbar.state.mode == 2) {
+        document.getElementById("icon-nav").src = activeNavbar.HamburgIcon;
+        document.getElementById("nav-options-collapsed").style.display="none";
+    }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -55,8 +58,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Icon clicks
         if (e.target.matches("#icon-nav")) {
-            if (e.target.src === activeNavbar.HamburgIcon) e.target.src = activeNavbar.CloseIcon;
-            else e.target.src = activeNavbar.HamburgIcon;
+            if (e.target.src === activeNavbar.HamburgIcon) {
+                e.target.src = activeNavbar.CloseIcon;
+                document.getElementById("nav-options-collapsed").style.display="flex";
+            }
+            else {
+                e.target.src = activeNavbar.HamburgIcon;
+                document.getElementById("nav-options-collapsed").style.display="none";
+            }
         }
     });
 

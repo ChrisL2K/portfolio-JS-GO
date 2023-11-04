@@ -26,7 +26,7 @@ export default class {
     }
 
     /**
-     * @returns content of view
+     * @returns html content of a view
      */
     async getBody() {
         return (

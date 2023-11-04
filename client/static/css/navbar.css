@@ -1,4 +1,4 @@
-#nav-items {
+.nav-items {
     margin: 0;
     padding: 0 32px;
     
@@ -44,11 +44,13 @@
 
 #nav-options-collapsed {
     flex-direction: column;
+    font-size: 20px;
+    height: max-content;
 }
 
 #nav-options-collapsed > a {
     margin: 5px 0;
 }
 #icon-nav {
-    width: 40px;
+    width: 35px;
 }
