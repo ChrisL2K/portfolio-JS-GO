@@ -2,6 +2,9 @@ import Home from "./views/home.js";
 import Projects from "./views/projects.js";
 import Resume from "./views/resume.js";
 import ContactMe from "./views/contactMe.js";
+import Navbar from "./views/navbar.js";
+
+let activeNavbar = {};
 
 function navigateTo(url) {
     history.pushState(null, null, url);
@@ -27,14 +30,38 @@ async function router() {
     document.getElementById("body-screen").innerHTML = await view().getBody();
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    router(); // To handle initial routing
+async function getNavbar() {
+    const nav = function() {
+        return new Navbar(innerWidth);
+    }
 
-    // Handle anchor clicks
+    activeNavbar = nav();
+    document.getElementById("navbar").innerHTML = await activeNavbar.getBody();
+    if (activeNavbar.state.mode == 2) document.getElementById("icon-nav").src = activeNavbar.HamburgIcon;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    // On content loaded
+    getNavbar();
+    router();
+
+    // Handle clicks
     document.body.addEventListener("click", e => {
+        // Navbar option clicks
         if (e.target.matches("[data-link]")) {
             e.preventDefault();
             if (window.location.href !== e.target.href) navigateTo(e.target.href);
         }
+
+        // Icon clicks
+        if (e.target.matches("#icon-nav")) {
+            if (e.target.src === activeNavbar.HamburgIcon) e.target.src = activeNavbar.CloseIcon;
+            else e.target.src = activeNavbar.HamburgIcon;
+        }
+    });
+
+    // Handle window resizing
+    window.addEventListener("resize", e => {
+        getNavbar();
     });
 });

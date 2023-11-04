@@ -1,3 +1,14 @@
-li > a {
-    display: block;
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+@import url("./navbar.css");
+
+body {
+    margin: 0;
+    font-family: Ubuntu;
+}
+
+#navbar {
+    width: 100%;
+    
+    border-bottom-width: 3px;
+    border-bottom-style: solid;
 }
