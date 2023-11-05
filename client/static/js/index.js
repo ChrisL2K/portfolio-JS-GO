@@ -5,10 +5,22 @@ import ContactMe from "./views/contactMe.js";
 import Navbar from "./views/navbar.js";
 
 let activeNavbar = {};
+let activeOption = 0;
 
 function navigateTo(url) {
     history.pushState(null, null, url);
     router();
+}
+
+function markOptionActive(target) {
+    console.log(target);
+
+    if (activeOption != 0) activeOption.removeAttribute("style");
+
+    if (target.matches("#nav-options-regular > a")) {
+        target.style = "border-bottom-style: solid; border-bottom-width: 3px;";
+        activeOption = target;
+    }
 }
 
 /**
@@ -24,7 +36,10 @@ async function router() {
     
     const view = function() {
         if (routes[location.pathname]) return new routes[location.pathname];
-        else return new routes["/"];
+        else {
+            location.pathname = "/";
+            return new routes["/"];
+        }
     }
 
     document.getElementById("body-screen").innerHTML = await view().getBody();
@@ -35,24 +50,37 @@ async function getNavbar() {
         return new Navbar(innerWidth);
     }
 
+    // if not home page, grab anchor
+    const initialRoute = function() {
+        const map = {
+            "/projects": document.querySelectorAll("a[href=\"/projects\"]").item(0),
+            "/resume": document.querySelectorAll("a[href=\"/resume\"]").item(0),
+            "/contact-me": document.querySelectorAll("a[href=\"/contact-me\"]").item(0)
+        };
+        return map[location.pathname];
+    }
+
     activeNavbar = nav();
     document.getElementById("navbar").innerHTML = await activeNavbar.getBody();
-    if (activeNavbar.state.mode == 2) {
+    if (activeNavbar.state.mode == "collapsed") {
         document.getElementById("icon-nav").src = activeNavbar.HamburgIcon;
         document.getElementById("nav-options-collapsed").style.display="none";
     }
+
+    if (activeOption == 0 && location.pathname != "/") markOptionActive(initialRoute());
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     // On content loaded
-    getNavbar();
     router();
+    getNavbar();
 
     // Handle clicks
     document.body.addEventListener("click", e => {
         // Navbar option clicks
         if (e.target.matches("[data-link]")) {
             e.preventDefault();
+            markOptionActive(e.target);
             if (window.location.href !== e.target.href) navigateTo(e.target.href);
         }
 
@@ -60,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (e.target.matches("#icon-nav")) {
             if (e.target.src === activeNavbar.HamburgIcon) {
                 e.target.src = activeNavbar.CloseIcon;
-                document.getElementById("nav-options-collapsed").style.display="flex";
+                document.getElementById("nav-options-collapsed").removeAttribute("style");
             }
             else {
                 e.target.src = activeNavbar.HamburgIcon;

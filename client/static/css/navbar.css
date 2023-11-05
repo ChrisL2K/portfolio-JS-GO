@@ -11,7 +11,7 @@
 }
 
 #nav-brand-regular, #nav-brand-collapsed {
-    color: black;
+    color: #FEFEE3;
     text-decoration: none;
 }
 
@@ -26,31 +26,41 @@
 #nav-options-regular, #nav-options-collapsed {
     display: flex;
     justify-content: space-evenly;
+    font-size: 20px;
 }
 
 #nav-options-regular > a, #nav-options-collapsed > a {
-    color: black;
+    color: #FEFEE3;
     text-decoration: none;
+}
+
+#nav-options-regular > a:hover, #nav-options-collapsed > a:hover, #nav-brand-regular:hover, #nav-brand-collapsed:hover {
+    color: #D68C45;
 }
 
 #nav-options-regular {
     flex-direction: row;
-    font-size: 20px;
+    height: 100%;
+    align-items: center;
 }
 
 #nav-options-regular > a {
-    margin: 0 20px;
+    margin: 0 20px 3px;
+    height: 100%;
+    display: flex;
+    align-items: center;
 }
 
 #nav-options-collapsed {
+    padding-bottom: 8px;
     flex-direction: column;
-    font-size: 20px;
     height: max-content;
 }
 
 #nav-options-collapsed > a {
-    margin: 5px 0;
+    margin: 8px 0;
 }
+
 #icon-nav {
     width: 35px;
 }

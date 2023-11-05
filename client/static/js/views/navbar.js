@@ -16,7 +16,7 @@ export default class extends DefaultView {
 
     async getBody() {
         const html = await this.retrieveHTML();
-        (this.width < 750) ? this.state.mode = 2 : this.state.mode = 1;
+        (this.width < 750) ? this.state.mode = "collapsed" : this.state.mode = "regular";
 
         return super.retrieveInnerHTML(html, this.state);
     }
