@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+@import url("./navbar.css");
+@import url("./home.css");
+
+:root {
+    --background: #4c956c;
+    --navbar-background: #2c6e49;
+    --text-regular: #FEFEE3;
+    --text-hover: #D68C45;
+    --accent-color: #FFC9B9;
+}
+
+body {
+    margin: 0;
+    font-family: Ubuntu;
+
+    background-color: var(--background);
+}
+
+#body-screen {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+#navbar {
+    width: 100%;
+    background-color: var(--navbar-background);
+}

@@ -13,8 +13,6 @@ function navigateTo(url) {
 }
 
 function markOptionActive(target) {
-    console.log(target);
-
     if (activeOption != 0) activeOption.removeAttribute("style");
 
     if (target.matches("#nav-options-regular > a")) {
@@ -62,9 +60,9 @@ async function getNavbar() {
 
     activeNavbar = nav();
     document.getElementById("navbar").innerHTML = await activeNavbar.getBody();
-    if (activeNavbar.state.mode == "collapsed") {
+    if (activeNavbar.state.mode == "mobile") {
         document.getElementById("icon-nav").src = activeNavbar.HamburgIcon;
-        document.getElementById("nav-options-collapsed").style.display="none";
+        document.getElementById("nav-options-mobile").style.display="none";
     }
 
     if (activeOption == 0 && location.pathname != "/") markOptionActive(initialRoute());
@@ -88,11 +86,11 @@ document.addEventListener("DOMContentLoaded", () => {
         if (e.target.matches("#icon-nav")) {
             if (e.target.src === activeNavbar.HamburgIcon) {
                 e.target.src = activeNavbar.CloseIcon;
-                document.getElementById("nav-options-collapsed").removeAttribute("style");
+                document.getElementById("nav-options-mobile").removeAttribute("style");
             }
             else {
                 e.target.src = activeNavbar.HamburgIcon;
-                document.getElementById("nav-options-collapsed").style.display="none";
+                document.getElementById("nav-options-mobile").style.display="none";
             }
         }
     });

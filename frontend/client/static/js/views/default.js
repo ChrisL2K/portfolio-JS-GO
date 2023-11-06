@@ -1,6 +1,7 @@
 export default class {
-    async retrieveHTML() {
-        return "";
+    async retrieveHTML(path) {
+        const resp = await fetch(new URL(path, document.baseURI));
+        return resp.text();
     }
 
     /**
@@ -30,7 +31,7 @@ export default class {
      */
     async getBody() {
         return (
-            await this.retrieveHTML()
+            "Default Page"
         );
     }
 }
