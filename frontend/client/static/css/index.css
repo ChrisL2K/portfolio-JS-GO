@@ -3,28 +3,37 @@
 @import url("./home.css");
 
 :root {
-    --background: #4c956c;
-    --navbar-background: #2c6e49;
+    --background: #002B36;
+    --containers: #004052;
     --text-regular: #FEFEE3;
     --text-hover: #D68C45;
     --accent-color: #FFC9B9;
 }
 
+html, body {
+    height: 100%;
+}
+
 body {
+    color: var(--text-regular);
+    display: flex;
+    flex-direction: column;
     margin: 0;
     font-family: Ubuntu;
 
     background-color: var(--background);
 }
 
-#body-screen {
-    display: flex;
+nav {
     width: 100%;
-    justify-content: center;
-    align-items: center;
+    background-color: var(--containers);
+    box-shadow: 0 0 16px black;
 }
 
-#navbar {
+#body-screen {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     width: 100%;
-    background-color: var(--navbar-background);
+    align-items: center;
 }

@@ -1,102 +1,61 @@
-import Home from "./views/home.js";
-import Projects from "./views/projects.js";
-import Resume from "./views/resume.js";
-import ContactMe from "./views/contactMe.js";
-import Navbar from "./views/navbar.js";
+import {Page} from "./views/page.js";
 
-let activeNavbar = {};
-let activeOption = 0;
+let navbar = {};
 
-function navigateTo(url) {
-    history.pushState(null, null, url);
-    router();
+async function getNavbar() {
+    const nav = document.querySelector("nav");
+    nav.innerHTML = await Page.getContent(new URL("static/js/views/navbar.html", document.baseURI).href);
+
+    navbar = {
+        "brand": nav.querySelector("div > a"),
+        "projects": nav.querySelector("div > div > a[href=\"/projects\"]"),
+        "resume": nav.querySelector("div > div > a[href=\"/resume\"]"),
+        "contact-me": nav.querySelector("div > div > a[href=\"/contact-me\"]"),
+        "active": {}
+    }
 }
 
-function markOptionActive(target) {
-    if (activeOption != 0) activeOption.removeAttribute("style");
-
-    if (target.matches("#nav-options-regular > a")) {
-        target.style = "border-bottom-style: solid; border-bottom-width: 3px;";
-        activeOption = target;
-    }
+function navigateTo({href}) {
+    history.pushState(null, null, href);
+    router();
 }
 
 /**
  * Renders view from the current location.pathname
  */
 async function router() {
+    const path = new URL("static/js/views/", document.baseURI).href;
+
     const routes = {
-        "/": Home,
-        "/projects": Projects,
-        "/resume": Resume,
-        "/contact-me": ContactMe
+        "/": "home.html",
+        "/projects": "projects.html",
+        "/resume": "resume.html",
+        "/contact-me": "contactMe.html"
     }
-    
+
     const view = function() {
-        if (routes[location.pathname]) return new routes[location.pathname];
+        if (routes[location.pathname]) return path + routes[location.pathname];
         else {
             location.pathname = "/";
-            return new routes["/"];
+            return path + routes["/"];
         }
     }
 
-    document.getElementById("body-screen").innerHTML = await view().getBody();
-}
-
-async function getNavbar() {
-    const nav = function() {
-        return new Navbar(innerWidth);
-    }
-
-    // if not home page, grab anchor
-    const initialRoute = function() {
-        const map = {
-            "/projects": document.querySelectorAll("a[href=\"/projects\"]").item(0),
-            "/resume": document.querySelectorAll("a[href=\"/resume\"]").item(0),
-            "/contact-me": document.querySelectorAll("a[href=\"/contact-me\"]").item(0)
-        };
-        return map[location.pathname];
-    }
-
-    activeNavbar = nav();
-    document.getElementById("navbar").innerHTML = await activeNavbar.getBody();
-    if (activeNavbar.state.mode == "mobile") {
-        document.getElementById("icon-nav").src = activeNavbar.HamburgIcon;
-        document.getElementById("nav-options-mobile").style.display="none";
-    }
-
-    if (activeOption == 0 && location.pathname != "/") markOptionActive(initialRoute());
+    document.getElementById("body-screen").innerHTML = await Page.getContent(view());
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     // On content loaded
-    router();
     getNavbar();
+    router();
 
     // Handle clicks
     document.body.addEventListener("click", e => {
         // Navbar option clicks
         if (e.target.matches("[data-link]")) {
+            // Prevent reload and push new state if not same path
             e.preventDefault();
-            markOptionActive(e.target);
-            if (window.location.href !== e.target.href) navigateTo(e.target.href);
+            if (window.location.href !== e.target.href) navigateTo(e.target);
         }
-
-        // Icon clicks
-        if (e.target.matches("#icon-nav")) {
-            if (e.target.src === activeNavbar.HamburgIcon) {
-                e.target.src = activeNavbar.CloseIcon;
-                document.getElementById("nav-options-mobile").removeAttribute("style");
-            }
-            else {
-                e.target.src = activeNavbar.HamburgIcon;
-                document.getElementById("nav-options-mobile").style.display="none";
-            }
-        }
-    });
-
-    // Handle window resizing
-    window.addEventListener("resize", e => {
-        getNavbar();
     });
 });
