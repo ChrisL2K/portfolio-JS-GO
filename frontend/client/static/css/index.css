@@ -1,39 +1,81 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
-@import url("./navbar.css");
-@import url("./home.css");
 
 :root {
     --background: #002B36;
     --containers: #004052;
     --text-regular: #FEFEE3;
-    --text-hover: #D68C45;
-    --accent-color: #FFC9B9;
-}
-
-html, body {
-    height: 100%;
+    --text-selected: #D68C45;
 }
 
 body {
-    color: var(--text-regular);
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    font-family: Ubuntu;
-
+    font-size: 62.5%;
     background-color: var(--background);
+    height: 100vh;
 }
 
-nav {
-    width: 100%;
-    background-color: var(--containers);
-    box-shadow: 0 0 16px black;
+a, p, h1, body {
+    color: var(--text-regular);
+    font-family: Ubuntu;
+    text-decoration: none;
+    margin: 0;
 }
 
-#body-screen {
+a, p {
+    font-size: 2em;
+    line-height: 1.6em;
+}
+
+a:active {color: var(--text-selected);}
+
+h1::selection, p::selection {background-color: var(--text-selected);}
+
+#nav {height: 10vh;}
+
+#view {height: 90vh;}
+
+.center-evenly {
+    height: 100%;
+    justify-content: space-evenly;
+}
+
+.center-v {
+    height: 100%;
+    align-items: center;
+}
+
+.flex-col {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    width: 100%;
-    align-items: center;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.mg-b-25 {margin-bottom: 25px;}
+
+@media (min-width: 600px) {
+    h1 {
+        font-size: 4em;
+    }
+
+    .center-h {
+        margin: 0 auto;
+    }
+
+    .half-width {
+        max-width: 50%;
+    }
+}
+
+@media not all and (min-width: 600px) {
+    h1 {
+        font-size: 3.2em;
+    }
+
+    .center-h {
+        margin: 0 1em;
+    }
 }
