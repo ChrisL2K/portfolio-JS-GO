@@ -2,15 +2,32 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width" />
-        <link rel="stylesheet" href="./static/css/index.css" />
-        <link rel="icon" type="image/png" href="./static/images/favicon.png" />
-        <script type="module" src="./static/js/index.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="static/css/index.css" />
+        <link rel="icon" type="image/png" href="static/images/favicon.png" />
+        <script type="module" src="static/js/index.js"></script>
         <title>Christian Lavoie</title>
     </head>
     <body>
         <noscript>JavaScript necessary for page content to load.</noscript>
-        <div id="nav"></div>
-        <div id="view"></div>
+        <header>
+            <nav class="flex-row center-v center-h">
+                <a href="/projects" data-nav>Projects</a>
+                <a href="/resume" data-nav>Resume</a>
+                <a href="/contact-me" data-nav>Contact me</a>
+            </nav>
+        </header>
+        <main class="flex-col center-evenly"></main>
+        <footer>
+            <p class="center-v">
+                Christian Lavoie - Portfolio - Built using plain JavaScript, Go, and SQLite.
+                <span class="fs">
+                    <img src="static/images/js_logo.svg" />
+                </span>
+                <span class="fs">
+                    <img src="static/images/gopher.svg" />
+                </span>
+            </p>
+        </footer>
     </body>
 </html>

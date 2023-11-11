@@ -1,11 +1,5 @@
 import {View} from "./views/view.js";
 
-const fullPath = new URL("static/js/views/", document.baseURI).href;
-
-async function getNavbar() {
-    document.getElementById("nav").innerHTML = await View.getContent({path: fullPath + "navbar.html", args: {}});
-}
-
 function navigateTo({href}) {
     history.pushState(null, null, href);
     router();
@@ -15,28 +9,24 @@ function navigateTo({href}) {
  * Renders view from the current location.pathname
  */
 async function router() {
+    const fullPath = new URL("static/js/views/", document.baseURI).href;
+    
     const routes = {
         "/": {
-            path: fullPath + "home.html",
-            args: [function() {
-                const hour = new Date().getHours();
-                if (hour >= 5 && hour < 12) return "Good morning,";
-                else if (hour >= 12 && hour < 18) return "Good afternoon,";
-                else if (hour >= 18 && hour < 24) return "Good evening,";
-                else return "Welcome,";
-            }]
+            view: 1,
+            path: fullPath + "home.html"
         },
         "/projects": {
-            path: fullPath + "projects.html",
-            args: []
+            view: 2,
+            path: fullPath + "projects.html"
         },
         "/resume": {
-            path: fullPath + "resume.html",
-            args: []
+            view: 3,
+            path: fullPath + "resume.html"
         },
         "/contact-me": {
-            path: fullPath + "contactMe.html",
-            args: []
+            view: 4,
+            path: fullPath + "contactMe.html"
         }
     }
 
@@ -48,21 +38,31 @@ async function router() {
         }
     }
 
-    document.getElementById("view").innerHTML = await View.getContent(view());
+    document.querySelector("main").innerHTML = await View.getViewHTML(view());
+    View.runViewScript(View.view);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     // On content loaded
-    getNavbar();
     router();
 
     // Handle clicks
     document.body.addEventListener("click", e => {
+        console.log(e.target);
+        
         // Navbar option clicks
-        if (e.target.matches("[data-link]")) {
-            // Prevent reload and push new state if not same path
+        if (e.target.matches("[data-nav]")) {
             e.preventDefault();
-            console.log("data click");
+            console.log("nav click");
         }
+        else if (e.target.matches("[data-ext]")) {
+            e.preventDefault();
+            console.log("ext click");
+        }
+    });
+
+    // Handle viewport resize
+    window.addEventListener("resize", () => {
+        View.runViewScript(View.view);
     });
 });
