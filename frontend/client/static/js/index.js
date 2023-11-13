@@ -1,8 +1,13 @@
 import {View} from "./views/view.js";
+const view = new View();
 
 function navigateTo({href}) {
     history.pushState(null, null, href);
     router();
+}
+
+function openNewTab({href}) {
+    window.open(href);
 }
 
 /**
@@ -30,7 +35,7 @@ async function router() {
         }
     }
 
-    const view = function() {
+    const route = function() {
         if (routes[location.pathname]) return routes[location.pathname];
         else {
             location.pathname = "/";
@@ -38,8 +43,8 @@ async function router() {
         }
     }
 
-    document.querySelector("main").innerHTML = await View.getViewHTML(view());
-    View.runViewScript(View.view);
+    document.querySelector("main").innerHTML = await view.getViewContentHTML(route());
+    view.runViewScript();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -47,22 +52,29 @@ document.addEventListener("DOMContentLoaded", () => {
     router();
 
     // Handle clicks
-    document.body.addEventListener("click", e => {
-        console.log(e.target);
-        
+    document.body.addEventListener("click", e => {  
         // Navbar option clicks
         if (e.target.matches("[data-nav]")) {
             e.preventDefault();
-            console.log("nav click");
+            navigateTo(e.target);
         }
         else if (e.target.matches("[data-ext]")) {
             e.preventDefault();
-            console.log("ext click");
+            openNewTab(e.target);
+        }
+        else if (e.target.matches("[type=\"submit\"]")) {
+            e.preventDefault();
+            console.log("submit function called");
+            console.log(document.querySelector("textarea").scrollHeight);
+        }
+        else if (e.target.matches("option") && !e.target.matches("[value=\"default\"]"))
+        {
+            console.log(e.target);
         }
     });
 
     // Handle viewport resize
     window.addEventListener("resize", () => {
-        View.runViewScript(View.view);
+        if (view.activeView === 1) view.runViewScript();
     });
 });

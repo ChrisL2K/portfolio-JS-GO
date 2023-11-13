@@ -1,26 +1,22 @@
 export class View {
-    view = 0;
+    constructor() {
+        this.activeView = 0;
+    }
 
     /**
      * @param {*} path path of the view's html file
      * @param {*} args list of arg strings to modify html content
      * @returns html content string
      */
-    static async getViewHTML({view, path}) {
-        const args = this.getViewArgs(view);
+    async getViewContentHTML({view, path}) {
+        this.activeView = view;
+        const arg = await this.getViewArg();
         let html = await (await fetch(path)).text();
-
-        for (let i = 0; i < args.length; i++) {
-            html = html.replace(`%${i}`, args[i]);
-        }
-
-        View.view = this.view;
+        html = html.replace(`%%`, arg);
         return html;
     }
 
-    static getViewArgs(view) {
-        let args = [];
-
+    async getViewArg() {
         const getTimeMsg = function() {
             const hour = new Date().getHours();
             if (hour >= 5 && hour < 12) return "Good morning,";
@@ -29,30 +25,52 @@ export class View {
             else return "Welcome,";
         }
 
-        const argsMap = {
+        const getAllCards = function() {
+            // send get request to backend, pull all projects data
+            const cardData = [{
+                title: "Title",
+                description: "This is what a project card will look like, in all its glory.",
+                tags: ["React", "Web"]
+            }];
+
+            // create cards from json elements
+            createCardGrid()
+        }
+
+        const argMap = {
             1: getTimeMsg(),
             2: 0,
             3: 0,
             4: 0
         }
-        args.push(argsMap[view]);
-
-        return args;
+        return argMap[this.activeView];
     }
 
-    static runViewScript(view) {
-        // Resize "Quick Links" divider to match hero-section width
-        const quickLinksStyling = function() {
-            const heroWidth = document.getElementById("hero-section").offsetWidth;
-            document.getElementById("ql-section").setAttribute("style", `width: ${heroWidth}px`);
-        }
+    /**
+     * Runs a script (if any) tied to a view
+     */
+    runViewScript() {
+        const main = document.querySelector("main");
 
-        const scriptsMap = {
-            1: quickLinksStyling(),
-            2: 0,
-            3: 0,
-            4: 0
+        // Resize "Quick Links" divider to match hero-section width
+        switch (this.activeView) {
+            case 1:
+                main.removeAttribute("class");
+                main.setAttribute("class", "flex-col center-evenly");
+
+                const heroWidth = document.getElementById("hero-section").offsetWidth;
+                document.getElementById("ql-section").setAttribute("style", `width: ${heroWidth}px`);
+                break;
+            case 2:
+                main.removeAttribute("class");
+                main.setAttribute("class", "flex-col flex-start")
+                break;
+            case 3:
+                break;
+            case 4:
+                main.removeAttribute("class");
+                main.setAttribute("class", "flex-col center-evenly");
+                break;
         }
-        scriptsMap[view];
     }
 }

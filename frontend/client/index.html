@@ -12,22 +12,25 @@
         <noscript>JavaScript necessary for page content to load.</noscript>
         <header>
             <nav class="flex-row center-v center-h">
+                <a href="/" data-nav>Home</a>
                 <a href="/projects" data-nav>Projects</a>
                 <a href="/resume" data-nav>Resume</a>
                 <a href="/contact-me" data-nav>Contact me</a>
             </nav>
         </header>
-        <main class="flex-col center-evenly"></main>
-        <footer>
-            <p class="center-v">
-                Christian Lavoie - Portfolio - Built using plain JavaScript, Go, and SQLite.
-                <span class="fs">
-                    <img src="static/images/js_logo.svg" />
-                </span>
-                <span class="fs">
-                    <img src="static/images/gopher.svg" />
-                </span>
-            </p>
-        </footer>
+        <section id="scroll-section" class="flex-col">
+            <main></main>
+            <footer>
+                <p class="center-v">
+                    Christian Lavoie - Portfolio - Built using plain JavaScript, Go, and SQLite.
+                    <span class="fs">
+                        <img src="static/images/js_logo.svg" />
+                    </span>
+                    <span class="fs">
+                        <img src="static/images/gopher.svg" />
+                    </span>
+                </p>
+            </footer>
+        </section>
     </body>
 </html>
