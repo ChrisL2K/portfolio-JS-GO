@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
     router();
 
     // Handle clicks
-    document.body.addEventListener("click", e => {  
+    document.body.addEventListener("click", e => {
         // Navbar option clicks
         if (e.target.matches("[data-nav]")) {
             e.preventDefault();
@@ -62,6 +62,10 @@ document.addEventListener("DOMContentLoaded", () => {
             e.preventDefault();
             openNewTab(e.target);
         }
+        else if (e.target.matches("[data-int]")) {
+            e.preventDefault();
+            //?
+        }
         else if (e.target.matches("[type=\"submit\"]")) {
             e.preventDefault();
             console.log("submit function called");
@@ -70,6 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
         else if (e.target.matches("option") && !e.target.matches("[value=\"default\"]"))
         {
             console.log(e.target);
+            //?
         }
     });
 

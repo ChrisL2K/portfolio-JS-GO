@@ -1,3 +1,5 @@
+import { Component } from "./component.js";
+
 export class View {
     constructor() {
         this.activeView = 0;
@@ -10,9 +12,11 @@ export class View {
      */
     async getViewContentHTML({view, path}) {
         this.activeView = view;
+
         const arg = await this.getViewArg();
         let html = await (await fetch(path)).text();
         html = html.replace(`%%`, arg);
+        
         return html;
     }
 
@@ -25,24 +29,47 @@ export class View {
             else return "Welcome,";
         }
 
-        const getAllCards = function() {
+        const getAllCards = async function() {
             // send get request to backend, pull all projects data
-            const cardData = [{
-                title: "Title",
-                description: "This is what a project card will look like, in all its glory.",
-                tags: ["React", "Web"]
-            }];
+            const cardData = [
+                {
+                    title: "Title",
+                    description: "This is what a project card will look like, in all its glory. And then a little bit more to grow to 3 lines. Almost there.",
+                    tags: ["React", "Web"]
+                },
+                {
+                    title: "Title2",
+                    description: "This is what a project card will look like, in all its glory. And then a little bit more to grow to 3 lines. Almost there.",
+                    tags: ["Flutter", "Mobile"]
+                },
+                {
+                    title: "Title3",
+                    description: "This is what a project card will look like, in all its glory. And then a little bit more to grow to 3 lines. Almost there.",
+                    tags: ["C++", "Desktop"]
+                },
+                {
+                    title: "Title4",
+                    description: "This is what a project card will look like, in all its glory. And then a little bit more to grow to 3 lines. Almost there.",
+                    tags: ["SolidJS", "Random"]
+                }
+            ];
 
-            // create cards from json elements
-            createCardGrid()
+            // create cards from json objects
+            const cards = [];
+            
+            for (const data of cardData) {
+                cards.push(await Component.createCard(data));
+            }
+
+            return cards.join("");
         }
 
         const argMap = {
             1: getTimeMsg(),
-            2: 0,
+            2: getAllCards(),
             3: 0,
             4: 0
-        }
+        };
         return argMap[this.activeView];
     }
 
