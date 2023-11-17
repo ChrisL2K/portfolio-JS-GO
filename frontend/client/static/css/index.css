@@ -18,53 +18,53 @@ body {
     height: 100vh;
 }
 
-a, p, h1, h3, label, textarea, body {
+a, p, h1, h3, h5, label, li, textarea, body {
     color: var(--text-regular);
     font-family: Ubuntu;
     text-decoration: none;
     margin: 0;
 }
 
-a, p, label, textarea {
+a, p, label, li, textarea {
     font-size: 2em;
     line-height: 1.6em;
 }
 
-a[data-ext] {
-    width: 50px;
-    height: 50px;
-    padding: 5px;
-    display: inline-block;
-}
+a {
+    &[data-ext] {
+        padding: 5px;
+        display: inline-block;
+    }
 
-a[data-int] {
-    padding: 8px 12px;
-    border-radius: 100vh;
-    border-style: dashed;
-}
+    &[data-git] {
+        padding: 8px 12px;
+        border-radius: 100vh;
+        border-style: dashed;
+    }
 
-a[data-nav] {padding: 2.5px 5px;}
+    &[data-nav] {padding: 2.5px 5px;}
 
-a:active {color: var(--text-selected);}
+    &:active {color: var(--text-selected);}
 
-a:hover {
-    transform: scale(1.1);
-    background-color: var(--containers);
-    border-radius: 100vh;
-    box-shadow: 0 8px 12px -4px rgba(0, 0, 0, 0.5),
-                0 16px 12px -8px rgba(0, 0, 0, 0.25),
-                0 -4px 12px -2px rgba(0, 0, 0, 0.5);
+    &:hover {
+        transform: scale(1.1);
+        background-color: var(--containers);
+        border-radius: 100vh;
+        box-shadow: 0 8px 12px -4px rgba(0, 0, 0, 0.5),
+                    0 16px 12px -8px rgba(0, 0, 0, 0.25),
+                    0 -4px 12px -2px rgba(0, 0, 0, 0.5);
+    }
 }
 
 footer {
     position: relative;
     height: var(--footer-height);
     border-top: 1px solid grey;
-}
 
-footer > p {
-    font-size: 1.6em;
-    margin-left: 5px;
+    &> p {
+        font-size: 1.6em;
+        margin-left: 5px;
+    }
 }
 
 form > div {
@@ -72,7 +72,7 @@ form > div {
     flex-direction: column;
 }
 
-h1::selection, h3::selection, p::selection, a::selection {background-color: var(--text-selected);}
+h1::selection, h3::selection, h5::selection, li::selection, p::selection, a::selection {background-color: var(--text-selected);}
 
 header {
     background-color: var(--containers);
@@ -92,14 +92,14 @@ input {
     font-size: 2em;
     line-height: 1.6em;
     margin: 5px 0;
-}
 
-input[type="submit"] {
-    margin-top: 20px;
-    border-radius: 100vh;
-    background-color: var(--containers);
-    color: var(--text-regular);
-    cursor: pointer;
+    &[type="submit"] {
+        margin-top: 20px;
+        border-radius: 100vh;
+        background-color: var(--containers);
+        color: var(--text-regular);
+        cursor: pointer;
+    }
 }
 
 main {flex: 1;}
@@ -119,9 +119,9 @@ textarea {
     background-color: var(--containers);
     padding: 12px;
     border-radius: 12px;
-}
 
-.card > img {height: 25%;}
+    &> img {height: 25%;}
+}
 
 .center-evenly {justify-content: space-evenly;}
 
@@ -168,9 +168,34 @@ textarea {
     background-size: 100%;
 }
 
+.mg-b-12 {margin-bottom: 12px;}
+
+.mg-b-20 {margin-bottom: 20px;}
+
 .mg-b-25 {margin-bottom: 25px;}
 
+.mg-t-12 {margin-top: 12px;}
+
 .mg-t-20 {margin-top: 20px;}
+
+.mg-t-48 {margin-top: 48px;}
+
+.resume-container {
+    background-color: var(--containers);
+    padding: 12px;
+    border-radius: 12px;
+}
+
+.resume-item-header {margin-bottom: 24px;}
+
+.resume-item-list {
+    gap: 10px;
+}
+
+.square-50 {
+    width: 50px;
+    height: 50px;
+}
 
 .tag {
     margin-top: 12px;
@@ -192,9 +217,10 @@ textarea {
     border: 2px solid var(--text-regular);
 }
 
-.section-divider-named:not(:empty)::before {margin-right: 15px;}
-
-.section-divider-named:not(:empty)::after {margin-left: 15px;}
+.section-divider-named:not(:empty) {
+    &::before {margin-right: 15px;}
+    &::after {margin-left: 15px;}
+}
 
 .small-text {font-size: 1.8em;}
 
@@ -207,6 +233,11 @@ textarea {
     h1 {font-size: 4em;}
 
     h3 {font-size: 3.2em;}
+
+    h5 {
+        font-size: 2.4em;
+        line-height: 1.4em;
+    }
 
     header > nav {max-width: 50vw;}
 
@@ -232,6 +263,11 @@ textarea {
     h1 {font-size: 3.2em;}
 
     h3 {font-size: 2.4em;}
+
+    h5 {
+        font-size: 2em;
+        line-height: 1.4em;
+    }
 
     header > nav > a {font-size: 1.8em;}
 

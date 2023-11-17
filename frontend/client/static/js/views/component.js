@@ -1,5 +1,5 @@
 export class Component {
-    static async createCard({title, description, tags}) {
+    static async createCard({title, description, project_source, tags}) {
         let cardHTML = await (await fetch(new URL("static/js/views/projectCard.html", document.baseURI))).text();
         
         const elements = [
@@ -13,6 +13,10 @@ export class Component {
             },
             {
                 placeholder: "%2",
+                value: project_source
+            },
+            {
+                placeholder: "%3",
                 value: function() {
                     let allTags = [];
 

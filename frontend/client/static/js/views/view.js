@@ -35,21 +35,25 @@ export class View {
                 {
                     title: "Title",
                     description: "This is what a project card will look like, in all its glory. And then a little bit more to grow to 3 lines. Almost there.",
+                    project_source: "https://google.ca",
                     tags: ["React", "Web"]
                 },
                 {
                     title: "Title2",
                     description: "This is what a project card will look like, in all its glory. And then a little bit more to grow to 3 lines. Almost there.",
+                    project_source: "https://google.ca",
                     tags: ["Flutter", "Mobile"]
                 },
                 {
                     title: "Title3",
                     description: "This is what a project card will look like, in all its glory. And then a little bit more to grow to 3 lines. Almost there.",
+                    project_source: "https://google.ca",
                     tags: ["C++", "Desktop"]
                 },
                 {
                     title: "Title4",
                     description: "This is what a project card will look like, in all its glory. And then a little bit more to grow to 3 lines. Almost there.",
+                    project_source: "https://google.ca",
                     tags: ["SolidJS", "Random"]
                 }
             ];
@@ -76,14 +80,16 @@ export class View {
     /**
      * Runs a script (if any) tied to a view
      */
-    runViewScript() {
+    runViewScript(caller) {
         const main = document.querySelector("main");
 
         // Resize "Quick Links" divider to match hero-section width
         switch (this.activeView) {
             case 1:
-                main.removeAttribute("class");
-                main.setAttribute("class", "flex-col center-evenly");
+                if ("router") {
+                    main.removeAttribute("class");
+                    main.setAttribute("class", "flex-col center-evenly");
+                }
 
                 const heroWidth = document.getElementById("hero-section").offsetWidth;
                 document.getElementById("ql-section").setAttribute("style", `width: ${heroWidth}px`);
@@ -93,6 +99,8 @@ export class View {
                 main.setAttribute("class", "flex-col flex-start")
                 break;
             case 3:
+                main.removeAttribute("class");
+                main.setAttribute("class", "flex-col flex-start");
                 break;
             case 4:
                 main.removeAttribute("class");

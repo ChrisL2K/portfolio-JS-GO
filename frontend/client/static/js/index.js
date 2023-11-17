@@ -44,7 +44,7 @@ async function router() {
     }
 
     document.querySelector("main").innerHTML = await view.getViewContentHTML(route());
-    view.runViewScript();
+    view.runViewScript("router");
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -58,13 +58,9 @@ document.addEventListener("DOMContentLoaded", () => {
             e.preventDefault();
             navigateTo(e.target);
         }
-        else if (e.target.matches("[data-ext]")) {
+        else if (e.target.matches("[data-ext]") || e.target.matches("[data-git]")) {
             e.preventDefault();
             openNewTab(e.target);
-        }
-        else if (e.target.matches("[data-int]")) {
-            e.preventDefault();
-            //?
         }
         else if (e.target.matches("[type=\"submit\"]")) {
             e.preventDefault();
