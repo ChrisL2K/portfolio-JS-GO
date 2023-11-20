@@ -1,22 +1,26 @@
 export class Component {
-    static async createCard({title, description, project_source, tags}) {
-        let cardHTML = await (await fetch(new URL("static/js/views/projectCard.html", document.baseURI))).text();
+    static async createCard({image, title, description, project_source, tags}) {
+        let cardHTML = await (await fetch(new URL("static/html/projectCard.html", document.baseURI))).text();
         
         const elements = [
             {
                 placeholder: "%0",
-                value: title
+                value: image
             },
             {
                 placeholder: "%1",
-                value: description
+                value: title
             },
             {
                 placeholder: "%2",
-                value: project_source
+                value: description
             },
             {
                 placeholder: "%3",
+                value: project_source
+            },
+            {
+                placeholder: "%4",
                 value: function() {
                     let allTags = [];
 
@@ -38,5 +42,9 @@ export class Component {
         });
 
         return cardHTML;
+    }
+
+    static async getCardData() {
+        //?
     }
 }

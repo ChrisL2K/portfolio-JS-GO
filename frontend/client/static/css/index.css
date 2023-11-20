@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
 
 :root {
-    --background: #0F0F0F;
+    --background: #0A0A0A;
     --navbar: black;
     --containers: #3A335A;
     --hover: rgb(185, 170, 136, 0.15);
-    --text-regular: #FFFFF5;
+    --text-regular: ivory;
     --text-selected: #b9aa88;
 
     --header-height: clamp(50px, 10vh, 64px);
@@ -74,7 +74,7 @@ form > div {
     flex-direction: column;
 }
 
-h1::selection, h3::selection, h5::selection, li::selection, p::selection, a::selection {background-color: var(--text-selected);}
+h1::selection, h3::selection, h5::selection, label::selection, li::selection, p::selection, a::selection {background-color: var(--text-selected);}
 
 header {
     background-color: var(--navbar);

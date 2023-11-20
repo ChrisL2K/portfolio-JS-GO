@@ -1,4 +1,4 @@
-import {View} from "./views/view.js";
+import {View} from "./view.js";
 const view = new View();
 
 function navigateTo({href}) {
@@ -14,7 +14,7 @@ function openNewTab({href}) {
  * Renders view from the current location.pathname
  */
 async function router() {
-    const fullPath = new URL("static/js/views/", document.baseURI).href;
+    const fullPath = new URL("static/html/", document.baseURI).href;
     
     const routes = {
         "/": {

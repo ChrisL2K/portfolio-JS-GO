@@ -30,35 +30,10 @@ export class View {
         }
 
         const getAllCards = async function() {
-            // send get request to backend, pull all projects data
-            const cardData = [
-                {
-                    title: "Title",
-                    description: "This is what a project card will look like, in all its glory. And then a little bit more to grow to 3 lines. Almost there.",
-                    project_source: "https://google.ca",
-                    tags: ["React", "Web"]
-                },
-                {
-                    title: "Title2",
-                    description: "This is what a project card will look like, in all its glory. And then a little bit more to grow to 3 lines. Almost there.",
-                    project_source: "https://google.ca",
-                    tags: ["Flutter", "Mobile"]
-                },
-                {
-                    title: "Title3",
-                    description: "This is what a project card will look like, in all its glory. And then a little bit more to grow to 3 lines. Almost there.",
-                    project_source: "https://google.ca",
-                    tags: ["C++", "Desktop"]
-                },
-                {
-                    title: "Title4",
-                    description: "This is what a project card will look like, in all its glory. And then a little bit more to grow to 3 lines. Almost there.",
-                    project_source: "https://google.ca",
-                    tags: ["SolidJS", "Random"]
-                }
-            ];
+            // Get all card data
+            await Component.getCardData();
 
-            // create cards from json objects
+            // Create cards from card data objects
             const cards = [];
             
             for (const data of cardData) {
