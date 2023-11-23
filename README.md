@@ -2,7 +2,7 @@
 
 ## Intro
 This is a portfolio website built using no frameworks. It was created with the goal of bettering my JavaScript skills, without the abstractions of frameworks like React or Bootstrap.
-It is a Single Page Application, with a very simple content router (found in index.js). Currently, a backend has not been implemented, although it will likely be built using Go and Echo.
+It is a Single Page Application, with a very simple content router (found in index.js). Currently, a backend has not been implemented, although it is being built using Go, Echo, and SQLite.
 
 ## Website
 Link will be added once the website is complete and hosted
