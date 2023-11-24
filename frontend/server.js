@@ -15,4 +15,4 @@ app.get("/*", (req, res) => {
     res.sendFile(path.resolve("client", "index.html"));
 })
 
-app.listen(port, () => console.log(`Express server running on port ${port}`));
+app.listen(port, () => console.log(`Express running on port ${port}`));
